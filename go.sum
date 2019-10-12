@@ -1,0 +1,6 @@
+github.com/go-yaml/yaml v2.1.0+incompatible h1:RYi2hDdss1u4YE7GwixGzWwVo47T8UQwnTLB6vQiq+o=
+github.com/go-yaml/yaml v2.1.0+incompatible/go.mod h1:w2MrLa16VYP0jy6N7M5kHaCkaLENm+P+Tv+MfurjSw0=
+github.com/goarne/config v0.0.0-20170728211351-a45a4fb6af75 h1:VegLoeCoWPXi0mKM/VjZkAufEMt56P0N8gQdFiZjhMc=
+github.com/goarne/config v0.0.0-20170728211351-a45a4fb6af75/go.mod h1:NLaUKJLwkqRu/HwHu7UuD1Jo94IM7SNEzCI3k0k23sM=
+github.com/goarne/logging v0.0.0-20170730213320-726f1796d37e h1:T0HJMF8r9urgyInH2s3h1e69qGvXCMIufX5kIXandzw=
+github.com/goarne/logging v0.0.0-20170730213320-726f1796d37e/go.mod h1:r9PpR5ex4bm70o3lTIjk/+y3h4ppRDQNzDhOrPf+HxU=

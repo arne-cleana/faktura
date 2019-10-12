@@ -1,0 +1,9 @@
+server_port: 8080
+tracelogger:
+ filename : faktura.d/logs/trace.log
+ size : 100000
+ maxnumberoffiles : 5
+errorlogger:
+ filename : faktura.d/logs/error.log
+ size : 100000
+ maxnumberoffiles : 5
