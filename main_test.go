@@ -5,5 +5,5 @@ import (
 )
 
 func TestAbs(t *testing.T) {
-	HelloWorld()
+
 }

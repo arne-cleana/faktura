@@ -1,35 +1,36 @@
 package main
 
 import (
-	"fmt"
+	"net/http"
 	"os"
+	"strconv"
 
 	"github.com/goarne/config"
 	"github.com/goarne/logging"
+	"github.com/goarne/web"
 )
 
 var (
-	appConfig       AppConfig
-	msortWebService Service
+	cnf appConfig
 )
 
-type AppConfig struct {
+type appConfig struct {
 	ServerPort  int32 `yaml:"serviceurl"`
 	Infologger  logging.LogConfig
 	ErrorLogger logging.LogConfig
 }
 
 func init() {
-	appConfig = AppConfig{}
+	cnf = appConfig{}
 
 	cl := config.ConfigLoader{"config.d/appconfig.yaml"}
 
 	//Adding the concrete unmarshalling of AppConfig structure to the generic Config function.
 
-	cl.LoadAppKonfig(&appConfig)
+	cl.LoadAppKonfig(&cnf)
 
-	rotatingTraceWriter := logging.CreateRotatingWriter(appConfig.Infologger)
-	rotatingErrorWriter := logging.CreateRotatingWriter(appConfig.ErrorLogger)
+	rotatingTraceWriter := logging.CreateRotatingWriter(cnf.Infologger)
+	rotatingErrorWriter := logging.CreateRotatingWriter(cnf.ErrorLogger)
 
 	tracerLogger := logging.CreateLogWriter(rotatingTraceWriter)
 	tracerLogger.Append(os.Stdout)
@@ -41,10 +42,25 @@ func init() {
 }
 
 func main() {
-	HelloWorld()
+
+	router := createWebRouter()
+
+	if err := http.ListenAndServe(":"+strconv.FormatInt(8080, 10), router); err != nil {
+		logging.Error.Println(err)
+	}
+
+	logging.Trace.Println("Server stopped.")
 }
 
-//HelloWorld prints welcome message
-func HelloWorld() {
-	fmt.Printf("Hello world")
+func createWebRouter() *web.WebRouter {
+	rootPath := web.NewRoute().Path("/").Method(web.HttpGet).HandlerFunc(httpGetSample)
+
+	router := web.NewWebRouter()
+	router.AddRoute(rootPath)
+
+	return router
+}
+
+func httpGetSample(resp http.ResponseWriter, req *http.Request) {
+	resp.Write([]byte("Sample JSON payload\n"))
 }
